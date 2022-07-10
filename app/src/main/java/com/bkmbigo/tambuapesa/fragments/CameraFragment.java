@@ -63,6 +63,8 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
     private ObjectDetectorHelper objectDetectorHelper;
     private ExecutorService cameraExecutor;
 
+    private int LENS_FACING = CameraSelector.LENS_FACING_BACK;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,7 +89,19 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
             }
         });
 
-
+        fragmentCameraBinding.ChangeCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(LENS_FACING == CameraSelector.LENS_FACING_BACK){
+                    fragmentCameraBinding.ChangeCameraButton.setText("USE BACK CAMERA");
+                    LENS_FACING = CameraSelector.LENS_FACING_FRONT;
+                }else{
+                    fragmentCameraBinding.ChangeCameraButton.setText("USE FRONT CAMERA");
+                    LENS_FACING = CameraSelector.LENS_FACING_BACK;
+                }
+                changeCamera();
+            }
+        });
 
         BottomSheetBehavior<NestedScrollView> sheetBehavior = BottomSheetBehavior.from(fragmentCameraBinding.bottomSheetLayout.bottomSheetLayout);
         fragmentCameraBinding.bottomSheetLayout.bslCvGesture.setOnClickListener(new View.OnClickListener() {
@@ -285,7 +299,7 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
             throw new IllegalStateException("Camera Initialization Failed");
         }
 
-        CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build();
+        CameraSelector cameraSelector = new CameraSelector.Builder().requireLensFacing(LENS_FACING).build();
 
         preview = new Preview.Builder()
                 .setTargetAspectRatio(AspectRatio.RATIO_4_3)
@@ -333,6 +347,17 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
         int imageRotation = image.getImageInfo().getRotationDegrees();
 
         objectDetectorHelper.detect(bitmapBuffer, imageRotation);
+    }
+
+    private void changeCamera(){
+        cameraProvider.unbindAll();
+
+        fragmentCameraBinding.viewFinder.post(new Runnable() {
+            @Override
+            public void run() {
+                setUpCamera();
+            }
+        });
     }
 
     @Override
