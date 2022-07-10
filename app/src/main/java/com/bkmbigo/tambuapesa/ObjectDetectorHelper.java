@@ -24,7 +24,8 @@ public class ObjectDetectorHelper {
         EfficientNetDetLite0,
         EfficientNetDetLite1,
         EfficientNetDetLite2,
-        EfficientNetDetLite4
+        EfficientNetDetLite4,
+        EfficientNetDetLite0Pesa
     }
 
     public enum Device{
@@ -33,7 +34,7 @@ public class ObjectDetectorHelper {
         NNAPI
     }
 
-    private Context context;
+    private final Context context;
 
     public Device currentDevice;
     public Model currentModel;
@@ -43,7 +44,7 @@ public class ObjectDetectorHelper {
     public int numThreads = 2;
     public int maxResults = 5;
 
-    private DetectorListener objectDetectorListener;
+    private final DetectorListener objectDetectorListener;
 
     private ObjectDetector objectDetector;
 
@@ -130,6 +131,8 @@ public class ObjectDetectorHelper {
                 return "efficientdet-lite2.tflite";
             case EfficientNetDetLite4:
                 return "efficientdet-lite4.tflite";
+            case EfficientNetDetLite0Pesa:
+                return "efficientdet_lite0_Pesa.tflite";
             default:
                 throw new IOException("Model Not Found");
         }
@@ -145,6 +148,8 @@ public class ObjectDetectorHelper {
                 return Model.EfficientNetDetLite2;
             case 4:
                 return Model.EfficientNetDetLite4;
+            case 5:
+                return Model.EfficientNetDetLite0Pesa;
             case 0:
             default:
                 return Model.MobileNetV1;

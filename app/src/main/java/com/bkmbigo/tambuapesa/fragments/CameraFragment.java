@@ -199,6 +199,7 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
         models.add(ObjectDetectorHelper.Model.EfficientNetDetLite1.name());
         models.add(ObjectDetectorHelper.Model.EfficientNetDetLite2.name());
         models.add(ObjectDetectorHelper.Model.EfficientNetDetLite4.name());
+        models.add(ObjectDetectorHelper.Model.EfficientNetDetLite0Pesa.name());
 
         ArrayList<String> devices = new ArrayList<>();
         devices.add(ObjectDetectorHelper.Device.CPU.name());
