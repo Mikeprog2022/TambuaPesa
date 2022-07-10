@@ -3,6 +3,8 @@ package com.bkmbigo.tambuapesa.fragments;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,6 +66,7 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
     private ExecutorService cameraExecutor;
 
     private int LENS_FACING = CameraSelector.LENS_FACING_BACK;
+    private boolean hasFlashLight = false, isTorchOn = false;
 
     @Nullable
     @Override
@@ -76,6 +79,8 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        requireActivity().getWindow().setStatusBarColor(Color.parseColor("#3322FF22"));
 
         objectDetectorHelper = new ObjectDetectorHelper(
                 requireContext(), device,model, threshold, numThreads, maxResults,this);
@@ -100,6 +105,27 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
                     LENS_FACING = CameraSelector.LENS_FACING_BACK;
                 }
                 changeCamera();
+            }
+        });
+
+        fragmentCameraBinding.ToggleTorch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(hasFlashLight){
+                    if(!isTorchOn){
+                        if(camera != null){
+                            camera.getCameraControl().enableTorch(true);
+                            isTorchOn = true;
+                            fragmentCameraBinding.ToggleTorch.setText("TURN OFF TORCH");
+                        }
+                    }else{
+                        if(camera != null){
+                            camera.getCameraControl().enableTorch(false);
+                            isTorchOn = false;
+                            fragmentCameraBinding.ToggleTorch.setText("TURN ON TORCH");
+                        }
+                    }
+                }
             }
         });
 
@@ -332,6 +358,9 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
 
         try{
             camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer);
+
+            hasFlashLight = camera.getCameraInfo().hasFlashUnit();
+            fragmentCameraBinding.ToggleTorch.setEnabled(hasFlashLight);
 
             preview.setSurfaceProvider(fragmentCameraBinding.viewFinder.getSurfaceProvider());
 
