@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TambuaPesa</string>
+    <string name="turn_on_torch">Washa Taa</string>
+    <string name="turn_off_torch">Zima Taa</string>
+</resources>

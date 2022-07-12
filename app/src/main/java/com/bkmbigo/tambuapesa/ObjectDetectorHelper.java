@@ -25,7 +25,8 @@ public class ObjectDetectorHelper {
         EfficientNetDetLite1,
         EfficientNetDetLite2,
         EfficientNetDetLite4,
-        EfficientNetDetLite0Pesa
+        EfficientNetDetLite0Pesa,
+        EfficientNetDetLite0PesaV2
     }
 
     public enum Device{
@@ -133,6 +134,8 @@ public class ObjectDetectorHelper {
                 return "efficientdet-lite4.tflite";
             case EfficientNetDetLite0Pesa:
                 return "efficientdet_lite0_Pesa.tflite";
+            case EfficientNetDetLite0PesaV2:
+                return "efficientdet_lite0_Pesa_v2.tflite";
             default:
                 throw new IOException("Model Not Found");
         }
@@ -150,6 +153,8 @@ public class ObjectDetectorHelper {
                 return Model.EfficientNetDetLite4;
             case 5:
                 return Model.EfficientNetDetLite0Pesa;
+            case 6:
+                return Model.EfficientNetDetLite0PesaV2;
             case 0:
             default:
                 return Model.MobileNetV1;

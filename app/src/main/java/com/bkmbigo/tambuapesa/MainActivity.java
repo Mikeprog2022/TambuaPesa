@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NavigationRes;
@@ -14,6 +15,7 @@ import androidx.navigation.Navigation;
 
 import com.bkmbigo.tambuapesa.databinding.ActivityMainBinding;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.Objects;
 
@@ -30,12 +32,41 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 
+        activityMainBinding.bottomNavigation.setSelectedItemId(R.id.main_page);
+        activityMainBinding.bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId() == R.id.main_page) {
+                    if (activityMainBinding.bottomNavigation.getSelectedItemId() == R.id.settings_page) {
+                        Navigation.findNavController(MainActivity.this, R.id.main_container).navigate(R.id.action_settingsFragment_to_cameraFragment);
+                        return true;
+                    }
+                }else if(item.getItemId() == R.id.settings_page){
+                    if (hasPermission()){
+                        Navigation.findNavController(MainActivity.this, R.id.main_container).navigate(R.id.action_cameraFragment_to_settingsFragment);
+                    }else{
+                        Navigation.findNavController(MainActivity.this, R.id.main_container).navigate(R.id.action_permissionsFragment_to_settingsFragment);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+        activityMainBinding.bottomNavigation.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
+
+            }
+        });
         Objects.requireNonNull(getSupportActionBar()).hide();
     }
 
 
-
-
+    @Override
+    protected void onResume() {
+        activityMainBinding.bottomNavigation.setSelectedItemId(R.id.main_page);
+        super.onResume();
+    }
 
     @Override
     public void onBackPressed() {

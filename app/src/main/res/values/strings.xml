@@ -1,3 +1,93 @@
 <resources>
-    <string name="app_name">TambuaPesa</string>
+    <string name="app_name" translatable="false">TambuaPesa</string>
+    <string name="turn_on_torch">Turn On Torch</string>
+    <string name="turn_off_torch">Turn Off Torch</string>
+
+    <string-array name="cameras_facing">
+        <item>Back Camera</item>
+        <item>Front Camera</item>
+    </string-array>
+
+    <string-array name="cameras_facing_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>Kiswahili</item>
+    </string-array>
+
+    <string-array name="languages_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="display_modes">
+        <item>Text and Display</item>
+        <item>Text Only</item>
+    </string-array>
+
+    <string-array name="display_modes_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="confidence_modes">
+        <item>No</item>
+        <item>Yes</item>
+    </string-array>
+
+    <string-array name="confidence_modes_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+
+
+    <string-array name="display_threshold">
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+    </string-array>
+
+    <string-array name="max_display_results">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+    <string-array name="speech_threshold">
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+    </string-array>
+
+    <string-array name="inference_devices">
+        <item>CPU</item>
+        <item>GPU</item>
+        <item>NNAPI</item>
+    </string-array>
+
+    <string-array name="inference_devices_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
 </resources>

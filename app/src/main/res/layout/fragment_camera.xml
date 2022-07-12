@@ -17,7 +17,7 @@
             tools:context=".CameraActivity"
             app:scaleType="fillStart"/>
 
-        <com.bkmbigo.tambuapesa.fragments.OverlayView
+        <com.bkmbigo.tambuapesa.OverlayView
             android:id="@+id/overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

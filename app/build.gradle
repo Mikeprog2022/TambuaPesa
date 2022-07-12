@@ -52,6 +52,7 @@ dependencies {
     implementation 'androidx.camera:camera-view:1.2.0-alpha03'
     implementation 'androidx.camera:camera-lifecycle:1.2.0-alpha03'
     implementation 'org.tensorflow:tensorflow-lite-metadata:0.4.1'
+    implementation 'androidx.preference:preference:1.2.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/cameraFragment">
+
+
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="com.bkmbigo.tambuapesa.fragments.CameraFragment"
+        android:label="CameraFragment" >
+
+
+        <action
+            android:id="@+id/action_cameraFragment_to_permissionsFragment"
+            app:destination="@id/permissionsFragment"
+            app:popUpTo="@id/cameraFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_cameraFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/permissionsFragment"
+        android:name="com.bkmbigo.tambuapesa.fragments.PermissionsFragment"
+        android:label="PermissionsFragment" >
+        <action
+            android:id="@+id/action_permissionsFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/permissionsFragment"/>
+        <action
+            android:id="@+id/action_permissionsFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.bkmbigo.tambuapesa.fragments.SettingsFragment"
+        android:label="SettingsFragment" >
+        <action
+            android:id="@+id/action_settingsFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_permissionsFragment"
+            app:destination="@id/permissionsFragment" />
+    </fragment>
+
+
+</navigation>

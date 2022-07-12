@@ -1,11 +1,13 @@
 package com.bkmbigo.tambuapesa.fragments;
 
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.preference.PreferenceManager;
 
 import com.bkmbigo.tambuapesa.ObjectDetectorHelper;
 import com.bkmbigo.tambuapesa.R;
@@ -39,6 +42,9 @@ import org.tensorflow.lite.task.vision.detector.Detection;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -49,10 +55,10 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
 
     private FragmentCameraBinding fragmentCameraBinding;
 
-    private BigDecimal threshold = BigDecimal.valueOf(0.6);
+    private BigDecimal threshold;
     private int numThreads = 2;
     private int maxResults = 5;
-    private ObjectDetectorHelper.Device device = ObjectDetectorHelper.Device.CPU;
+    private ObjectDetectorHelper.Device device;
     private ObjectDetectorHelper.Model model = ObjectDetectorHelper.Model.MobileNetV1;
 
     private Bitmap bitmapBuffer = null;
@@ -65,13 +71,33 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
     private ObjectDetectorHelper objectDetectorHelper;
     private ExecutorService cameraExecutor;
 
-    private int LENS_FACING = CameraSelector.LENS_FACING_BACK;
+    private int LENS_FACING;
     private boolean hasFlashLight = false, isTorchOn = false;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         fragmentCameraBinding = FragmentCameraBinding.inflate(inflater, container,false);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        if(!sharedPreferences.getString("default_camera", "1").equals("1")) {
+            fragmentCameraBinding.ChangeCameraButton.setText("USE BACK CAMERA");
+            LENS_FACING = CameraSelector.LENS_FACING_FRONT;
+        }else{
+            fragmentCameraBinding.ChangeCameraButton.setText("USE FRONT CAMERA");
+            LENS_FACING = CameraSelector.LENS_FACING_BACK;
+        }
+
+        String defaultDevice = sharedPreferences.getString("inference_device", "1");
+
+        if(defaultDevice.equals("2")) {
+            device = ObjectDetectorHelper.Device.GPU;
+        }else if(defaultDevice.equals("3")) {
+            device = ObjectDetectorHelper.Device.NNAPI;
+        } else{
+            device = ObjectDetectorHelper.Device.CPU;
+        }
+
+        threshold = BigDecimal.valueOf(Integer.parseInt(sharedPreferences.getString("display_threshold", "1"))).divide(BigDecimal.valueOf(100));
 
         return fragmentCameraBinding.getRoot();
     }
@@ -116,13 +142,13 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
                         if(camera != null){
                             camera.getCameraControl().enableTorch(true);
                             isTorchOn = true;
-                            fragmentCameraBinding.ToggleTorch.setText("TURN OFF TORCH");
+                            fragmentCameraBinding.ToggleTorch.setText(R.string.turn_off_torch);
                         }
                     }else{
                         if(camera != null){
                             camera.getCameraControl().enableTorch(false);
                             isTorchOn = false;
-                            fragmentCameraBinding.ToggleTorch.setText("TURN ON TORCH");
+                            fragmentCameraBinding.ToggleTorch.setText(R.string.turn_on_torch);
                         }
                     }
                 }
@@ -140,6 +166,7 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
                 }
             }
         });
+
         sheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
@@ -240,6 +267,7 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
         models.add(ObjectDetectorHelper.Model.EfficientNetDetLite2.name());
         models.add(ObjectDetectorHelper.Model.EfficientNetDetLite4.name());
         models.add(ObjectDetectorHelper.Model.EfficientNetDetLite0Pesa.name());
+        models.add(ObjectDetectorHelper.Model.EfficientNetDetLite0PesaV2.name());
 
         ArrayList<String> devices = new ArrayList<>();
         devices.add(ObjectDetectorHelper.Device.CPU.name());
@@ -385,6 +413,35 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
             @Override
             public void run() {
                 setUpCamera();
+            }
+        });
+    }
+
+    private void speakResults(List<Detection> results){
+        TextToSpeech tts;
+        Collections.sort(results, new Comparator<Detection>() {
+            @Override
+            public int compare(Detection lhs, Detection rhs) {
+                if(lhs.getCategories().get(0).getScore() != rhs.getCategories().get(0).getScore()) {
+                    if (lhs.getCategories().get(0).getScore() > rhs.getCategories().get(0).getScore()) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                }else{
+                    return 0;
+                }
+            }
+        });
+
+        String value = results.get(0).getCategories().get(0).getLabel();
+
+         tts = new TextToSpeech(requireContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if(status == TextToSpeech.SUCCESS){
+                    //ToDo: tts.speak(value, TextToSpeech.QUEUE_ADD, null);
+                }
             }
         });
     }

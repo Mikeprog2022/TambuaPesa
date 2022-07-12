@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:key="general_settings"
+        app:title="General Settings">
+        <ListPreference
+            android:entries="@array/languages"
+            android:entryValues="@array/languages_values"
+            android:defaultValue="1"
+            android:title="App Language"
+            app:key="app_language"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:entries="@array/languages"
+            android:entryValues="@array/languages_values"
+            android:defaultValue="1"
+            android:title="Speech Language"
+            app:key="speech_language"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:entries="@array/cameras_facing"
+            android:entryValues="@array/cameras_facing_values"
+            android:defaultValue="1"
+            android:title="Default Camera"
+            app:key="default_camera"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/display_modes"
+            android:entryValues="@array/display_modes_values"
+            android:title="Display Mode"
+            app:key="display_mode"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/confidence_modes"
+            android:entryValues="@array/confidence_modes_values"
+            android:title="Show Confidence"
+            app:key="show_confidence"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Threshold Settings">
+        <ListPreference
+            android:defaultValue="3"
+            android:title="Maximum Display Results"
+            app:key="max_display_results"
+            app:useSimpleSummaryProvider="true"
+            android:entries="@array/max_display_results"
+            android:entryValues="@array/max_display_results"/>
+
+        <ListPreference
+            android:defaultValue="60"
+            android:entries="@array/display_threshold"
+            android:entryValues="@array/display_threshold"
+            android:title="Display Threshold"
+            app:key="display_threshold"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:defaultValue="60"
+            android:entryValues="@array/speech_threshold"
+            android:entries="@array/speech_threshold"
+            android:title="Speech Threshold"
+            app:key="speech_threshold"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/inference_devices"
+            android:entryValues="@array/inference_devices_values"
+            android:title="Set Inference Device"
+            app:key="inference_device"
+            app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+</PreferenceScreen>

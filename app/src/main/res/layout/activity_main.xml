@@ -11,15 +11,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/bottom_navigation_menu"/>
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/main_container"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@id/bottom_navigation"
             android:layout_below="@id/main_toolbar"
             android:keepScreenOn="true"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph"
+            app:navGraph="@navigation/app_navigation"
             />
 
         <androidx.appcompat.widget.Toolbar
