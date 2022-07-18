@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         Objects.requireNonNull(getSupportActionBar()).hide();
     }
 

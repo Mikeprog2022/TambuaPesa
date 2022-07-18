@@ -14,13 +14,13 @@
             android:id="@+id/view_finder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".CameraActivity"
-            app:scaleType="fillStart"/>
+            app:scaleType="fillStart"
+            tools:context=".CameraActivity" />
 
         <com.bkmbigo.tambuapesa.OverlayView
             android:id="@+id/overlay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,43 +28,23 @@
             android:orientation="horizontal"
             android:paddingHorizontal="6dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00000000"
-                android:layout_weight="1"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="15dp">
-
-                <Button
-                    android:id="@+id/ChangeCameraButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="USE FRONT CAMERA"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
+            <Button
+                android:id="@+id/ChangeCameraButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="#00000000"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="15dp">
+                android:layout_marginHorizontal="4dp"
+                android:text="USE FRONT CAMERA" />
 
-                <Button
-                    android:id="@+id/ToggleTorch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TURN ON TORCH"
-                    android:enabled="false"/>
-
-            </androidx.cardview.widget.CardView>
+            <Button
+                android:id="@+id/ToggleTorch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
+                android:text="TURN ON TORCH" />
         </LinearLayout>
     </RelativeLayout>
-
-    <include
-        android:id="@+id/bottom_sheet_layout"
-        layout="@layout/bottom_sheet_layout"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

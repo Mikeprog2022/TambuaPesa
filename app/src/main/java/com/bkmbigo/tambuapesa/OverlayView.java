@@ -22,6 +22,7 @@ import org.tensorflow.lite.task.vision.detector.Detection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 public class OverlayView extends View {
     private List<Detection> results = new LinkedList<Detection>();
@@ -68,18 +69,18 @@ public class OverlayView extends View {
         super.onDraw(canvas);
 
         for(Detection result: results){
-            RectF boundingbox = result.getBoundingBox();
+            RectF boundingBox = result.getBoundingBox();
 
-            float top = Math.max(boundingbox.top * scaleFactor, 0f);
-            float bottom = boundingbox.bottom * scaleFactor;
-            float left = Math.max(boundingbox.left * scaleFactor, 0f);
-            float right = boundingbox.right * scaleFactor;
+            float top = Math.max(boundingBox.top * scaleFactor, 0f);
+            float bottom = boundingBox.bottom * scaleFactor;
+            float left = Math.max(boundingBox.left * scaleFactor, 0f);
+            float right = boundingBox.right * scaleFactor;
 
             String drawableText;
 
             if(isShowingConfidenceLevels){
                 drawableText = result.getCategories().get(0).getLabel() + " " +
-                        String.format("%.2f", result.getCategories().get(0).getScore());
+                        String.format(Locale.getDefault(),"%.2f", result.getCategories().get(0).getScore());
             }else{
                 drawableText = result.getCategories().get(0).getLabel();
             }

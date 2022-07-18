@@ -33,6 +33,7 @@
         <item>2</item>
     </string-array>
 
+
     <string-array name="confidence_modes">
         <item>No</item>
         <item>Yes</item>
@@ -89,5 +90,26 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+
+    <string-array name="inference_models">
+        <item>EfficientDet Lite0 v3</item>
+    </string-array>
+
+    <string-array name="inference_models_values">
+        <item>1</item>
+    </string-array>
+
+    <string-array name="feedback_modes">
+        <item>Speech</item>
+        <item>Vibration</item>
+        <item>Speech and Vibration</item>
+    </string-array>
+
+    <string-array name="feedback_modes_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
 
 </resources>

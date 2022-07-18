@@ -5,11 +5,11 @@
         app:key="general_settings"
         app:title="General Settings">
         <ListPreference
-            android:entries="@array/languages"
-            android:entryValues="@array/languages_values"
+            android:entries="@array/feedback_modes"
+            android:entryValues="@array/feedback_modes_values"
             android:defaultValue="1"
-            android:title="App Language"
-            app:key="app_language"
+            android:title="Feedback Mode"
+            app:key="feedback_mode"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
@@ -63,18 +63,30 @@
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            android:defaultValue="60"
+            android:defaultValue="70"
             android:entryValues="@array/speech_threshold"
             android:entries="@array/speech_threshold"
             android:title="Speech Threshold"
             app:key="speech_threshold"
             app:useSimpleSummaryProvider="true" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Inference Settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/inference_models"
+            android:entryValues="@array/inference_models_values"
+            android:title="Model"
+            app:key="inference_model"
+            app:useSimpleSummaryProvider="true"/>
 
         <ListPreference
             android:defaultValue="1"
             android:entries="@array/inference_devices"
             android:entryValues="@array/inference_devices_values"
-            android:title="Set Inference Device"
+            android:title="Inference Device"
             app:key="inference_device"
             app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
