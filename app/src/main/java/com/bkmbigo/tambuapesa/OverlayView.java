@@ -1,5 +1,6 @@
 package com.bkmbigo.tambuapesa;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
@@ -11,22 +12,18 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.annotation.Nullable;
-import androidx.camera.core.CameraSelector;
 import androidx.core.content.ContextCompat;
 import androidx.preference.PreferenceManager;
 
-import com.bkmbigo.tambuapesa.R;
-
 import org.tensorflow.lite.task.vision.detector.Detection;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
 public class OverlayView extends View {
-    private List<Detection> results = new LinkedList<Detection>();
-    private Paint boxPaint = new Paint(),
+    private List<Detection> results = new LinkedList<>();
+    private final Paint boxPaint = new Paint(),
             textBackgroundPaint = new Paint(),
             textPaint = new Paint();
 
@@ -34,11 +31,11 @@ public class OverlayView extends View {
 
     public static final int BOUNDING_BOX_RECT_TEXT_PADDING = 8;
 
-    private Rect bounds = new Rect();
+    private final Rect bounds = new Rect();
 
-    private Context context;
+    private final Context context;
 
-    private boolean isShowingTextOnly = false, isShowingConfidenceLevels = false;
+    private final boolean isShowingTextOnly, isShowingConfidenceLevels;
 
     public OverlayView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -86,7 +83,9 @@ public class OverlayView extends View {
             }
 
             if(!isShowingTextOnly){
+                @SuppressLint("DrawAllocation")
                 RectF drawableRectF = new RectF(left, top, right, bottom);
+
                 canvas.drawRect(drawableRectF, boxPaint);
 
                 textBackgroundPaint.getTextBounds(drawableText, 0, drawableText.length(), bounds);

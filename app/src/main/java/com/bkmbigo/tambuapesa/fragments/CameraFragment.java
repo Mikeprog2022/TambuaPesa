@@ -167,10 +167,10 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
             @Override
             public void onClick(View v) {
                 if(LENS_FACING == CameraSelector.LENS_FACING_BACK){
-                    fragmentCameraBinding.ChangeCameraButton.setText("USE BACK CAMERA");
+                    fragmentCameraBinding.ChangeCameraButton.setText(R.string.use_back_camera);
                     LENS_FACING = CameraSelector.LENS_FACING_FRONT;
                 }else{
-                    fragmentCameraBinding.ChangeCameraButton.setText("USE FRONT CAMERA");
+                    fragmentCameraBinding.ChangeCameraButton.setText(R.string.use_front_camera);
                     LENS_FACING = CameraSelector.LENS_FACING_BACK;
                 }
                 changeCamera();

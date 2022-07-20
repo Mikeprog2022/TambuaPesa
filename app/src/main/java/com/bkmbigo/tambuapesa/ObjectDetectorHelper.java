@@ -50,8 +50,8 @@ public class ObjectDetectorHelper {
 
 
     public BigDecimal threshold;
-    public int numThreads = 2;
-    public int maxResults = 5;
+    public int numThreads;
+    public int maxResults;
 
     private final DetectorListener objectDetectorListener;
 
@@ -128,22 +128,21 @@ public class ObjectDetectorHelper {
         objectDetector = null;
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     public String getModelName(Model model) throws IOException {
-        switch(model){
-            case EfficientNetDetLite0PesaV3:
-                return "efficientdet_lite0_Pesa_v3.tflite";
-            default:
+        if(model == Model.EfficientNetDetLite0PesaV3) {
+            return "efficientdet_lite0_Pesa_v3.tflite";
+        }else{
                 throw new IOException("Model Not Found");
         }
     }
 
     public static Model getModel(int position){
-        switch (position){
-            case 0:
-            default:
+        if (position == 0){
                 return Model.EfficientNetDetLite0PesaV3;
+        }else {
+            return Model.EfficientNetDetLite0PesaV3;
         }
-
     }
 
     public static Device getDevice(int position){

@@ -1,7 +1,6 @@
 package com.bkmbigo.tambuapesa;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 
 import java.util.Locale;
 import java.util.concurrent.RejectedExecutionException;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -112,12 +110,7 @@ public class SpeechHelper implements TextToSpeech.OnInitListener{
 
         int timing = 3000;
 
-        Runnable vibratingRunnable = new Runnable() {
-            @Override
-            public void run() {
-                isVibrating = false;
-            }
-        };
+        Runnable vibratingRunnable = () -> isVibrating = false;
 
         if(!isVibrating) {
             isVibrating = true;

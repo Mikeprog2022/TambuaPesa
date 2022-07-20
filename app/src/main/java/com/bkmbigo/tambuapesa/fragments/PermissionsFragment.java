@@ -1,7 +1,6 @@
 package com.bkmbigo.tambuapesa.fragments;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import androidx.navigation.Navigation;
 
 import com.bkmbigo.tambuapesa.R;
 import com.bkmbigo.tambuapesa.databinding.FragmentPermissionsBinding;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButton;
 
 

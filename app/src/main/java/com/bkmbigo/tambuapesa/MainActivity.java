@@ -7,14 +7,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.NavigationRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 
 import com.bkmbigo.tambuapesa.databinding.ActivityMainBinding;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.Objects;
@@ -83,19 +81,6 @@ public class MainActivity extends AppCompatActivity {
             return checkSelfPermission(PERMISSION_CAMERA) == PackageManager.PERMISSION_GRANTED;
         }else{
             return true;
-        }
-    }
-    
-    private void requestPermission(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(shouldShowRequestPermissionRationale(PERMISSION_CAMERA)){
-                Toast.makeText(this, "Requesting Camera Permission", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(this, "Cannot Ask For Permission", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            
-            requestPermissions(new String[]{PERMISSION_CAMERA}, PERMISSION_REQUEST);
         }
     }
 
