@@ -30,7 +30,11 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(activityMainBinding.getRoot());
 
-        activityMainBinding.bottomNavigation.setSelectedItemId(R.id.main_page);
+        try{
+            Navigation.findNavController(MainActivity.this, R.id.main_container).navigate(R.id.action_settingsFragment_to_cameraFragment);
+            activityMainBinding.bottomNavigation.setSelectedItemId(R.id.main_page);
+        }catch (Exception ignored){}
+
         activityMainBinding.bottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
                     if (activityMainBinding.bottomNavigation.getSelectedItemId() == R.id.settings_page) {
                         Navigation.findNavController(MainActivity.this, R.id.main_container).navigate(R.id.action_settingsFragment_to_cameraFragment);
                         return true;
+                    }else{
+                        Navigation.findNavController(MainActivity.this, R.id.main_container).navigate(R.id.action_settingsFragment_to_permissionsFragment);
                     }
                 }else if(item.getItemId() == R.id.settings_page){
                     if (hasPermission()){
@@ -52,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
         activityMainBinding.bottomNavigation.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
-
-            }
+            public void onNavigationItemReselected(@NonNull MenuItem item) {}
         });
 
         Objects.requireNonNull(getSupportActionBar()).hide();
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         if(Build.VERSION.SDK_INT == Build.VERSION_CODES.Q){
             finishAfterTransition();
         }else{

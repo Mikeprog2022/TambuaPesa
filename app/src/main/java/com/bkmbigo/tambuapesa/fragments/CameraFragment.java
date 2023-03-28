@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.speech.SpeechRecognizer;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
+import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ import com.bkmbigo.tambuapesa.SpeechHelper;
 import com.bkmbigo.tambuapesa.databinding.FragmentCameraBinding;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.common.util.concurrent.ListenableFuture;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.tensorflow.lite.task.vision.detector.Detection;
 
@@ -70,6 +72,8 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
     private SpeechHelper.SpeechLanguage speechLanguage;
     private SpeechHelper.FeedbackMode feedbackMode;
     private float speechThreshold;
+
+    private FirebaseAnalytics firebaseAnalytics;
 
 
     private Bitmap bitmapBuffer = null;
@@ -140,6 +144,7 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
 
         speechThreshold = BigDecimal.valueOf(Integer.parseInt(sharedPreferences.getString("speech_threshold", "1"))).divide(BigDecimal.valueOf(100)).floatValue();
 
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext());
         return fragmentCameraBinding.getRoot();
     }
 
@@ -373,8 +378,19 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
                     speech(results);
 
                     fragmentCameraBinding.overlay.invalidate();
+
+                    Bundle bundle_results = new Bundle();
+                    bundle_results.putString(FirebaseAnalytics.Param.ITEM_ID, "0");
+                    bundle_results.putString(FirebaseAnalytics.Param.ITEM_NAME, "Results");
+                    bundle_results.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+                    for(Detection detection: results){
+                        bundle_results.putString(FirebaseAnalytics.Param.CONTENT, detection.getCategories().get(0).getLabel() + " " + String.valueOf(detection.getCategories().get(0).getScore()));
+                    }
+
+
+                    firebaseAnalytics.logEvent("Results_Successful", bundle_results);
                 }
             });
-        }catch (IllegalStateException ignored){}
+        }catch (IllegalStateException ignored){ firebaseAnalytics.logEvent("illegal_state_exception_on_results", new Bundle());}
     }
 }

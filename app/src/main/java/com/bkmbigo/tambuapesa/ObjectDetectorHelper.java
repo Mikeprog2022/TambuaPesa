@@ -40,7 +40,8 @@ public class ObjectDetectorHelper {
         ONE_HUNDRED,
         TWO_HUNDRED,
         FIVE_HUNDRED,
-        ONE_THOUSAND
+        ONE_THOUSAND,
+        OLD_ONE_THOUSAND
     }
 
     private final Context context;
@@ -131,7 +132,7 @@ public class ObjectDetectorHelper {
     @SuppressWarnings("SpellCheckingInspection")
     public String getModelName(Model model) throws IOException {
         if(model == Model.EfficientNetDetLite0PesaV3) {
-            return "efficientdet_lite0_Pesa_v3.tflite";
+            return "efficientdet_lite0_with_metadata.tflite";
         }else{
                 throw new IOException("Model Not Found");
         }
@@ -177,6 +178,9 @@ public class ObjectDetectorHelper {
         }else if(resultValue.equalsIgnoreCase("1000")){
             return DetectionValue.ONE_THOUSAND;
         }
+        else if(resultValue.equalsIgnoreCase("old 1000")){
+            return DetectionValue.OLD_ONE_THOUSAND;
+        }
         throw  new IllegalStateException("Result Value got not in [1,5,10,20,50,100,200,500,1000]");
     }
 
@@ -199,6 +203,8 @@ public class ObjectDetectorHelper {
             return "five hundred";
         }else if(resultValue == DetectionValue.ONE_THOUSAND){
             return "one thousand";
+        }else if(resultValue == DetectionValue.OLD_ONE_THOUSAND){
+            return "old one thousand";
         }
         throw  new IllegalStateException("Result Value got not in [1,5,10,20,50,100,200,500,1000]");
     }
