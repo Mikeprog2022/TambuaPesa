@@ -1,28 +1,16 @@
-package com.bkmbigo.tambuapesa.fragments;
+package com.projecty4s2.pesacheck.fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.hardware.camera2.CameraManager;
 import android.os.Bundle;
-import android.speech.SpeechRecognizer;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.Voice;
-import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.camera.core.AspectRatio;
@@ -33,28 +21,23 @@ import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.preference.PreferenceManager;
 
-import com.bkmbigo.tambuapesa.ObjectDetectorHelper;
-import com.bkmbigo.tambuapesa.R;
-import com.bkmbigo.tambuapesa.SpeechHelper;
-import com.bkmbigo.tambuapesa.databinding.FragmentCameraBinding;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.projecty4s2.pesacheck.ObjectDetectorHelper;
+import com.projecty4s2.pesacheck.R;
+import com.projecty4s2.pesacheck.SpeechHelper;
+import com.projecty4s2.pesacheck.databinding.FragmentCameraBinding;
 import com.google.common.util.concurrent.ListenableFuture;
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.tensorflow.lite.task.vision.detector.Detection;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -72,8 +55,6 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
     private SpeechHelper.SpeechLanguage speechLanguage;
     private SpeechHelper.FeedbackMode feedbackMode;
     private float speechThreshold;
-
-    private FirebaseAnalytics firebaseAnalytics;
 
 
     private Bitmap bitmapBuffer = null;
@@ -143,8 +124,6 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
         maxResults = Integer.parseInt(sharedPreferences.getString("max_display_results", "1"));;
 
         speechThreshold = BigDecimal.valueOf(Integer.parseInt(sharedPreferences.getString("speech_threshold", "1"))).divide(BigDecimal.valueOf(100)).floatValue();
-
-        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext());
         return fragmentCameraBinding.getRoot();
     }
 
@@ -378,19 +357,8 @@ public class CameraFragment extends Fragment implements ObjectDetectorHelper.Det
                     speech(results);
 
                     fragmentCameraBinding.overlay.invalidate();
-
-                    Bundle bundle_results = new Bundle();
-                    bundle_results.putString(FirebaseAnalytics.Param.ITEM_ID, "0");
-                    bundle_results.putString(FirebaseAnalytics.Param.ITEM_NAME, "Results");
-                    bundle_results.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
-                    for(Detection detection: results){
-                        bundle_results.putString(FirebaseAnalytics.Param.CONTENT, detection.getCategories().get(0).getLabel() + " " + String.valueOf(detection.getCategories().get(0).getScore()));
-                    }
-
-
-                    firebaseAnalytics.logEvent("Results_Successful", bundle_results);
                 }
             });
-        }catch (IllegalStateException ignored){ firebaseAnalytics.logEvent("illegal_state_exception_on_results", new Bundle());}
+        }catch (IllegalStateException ignored){ }
     }
 }

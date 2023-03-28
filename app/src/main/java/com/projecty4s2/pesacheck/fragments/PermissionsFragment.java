@@ -1,4 +1,4 @@
-package com.bkmbigo.tambuapesa.fragments;
+package com.projecty4s2.pesacheck.fragments;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -17,8 +17,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import com.bkmbigo.tambuapesa.R;
-import com.bkmbigo.tambuapesa.databinding.FragmentPermissionsBinding;
+import com.projecty4s2.pesacheck.R;
+import com.projecty4s2.pesacheck.databinding.FragmentPermissionsBinding;
 import com.google.android.material.button.MaterialButton;
 
 

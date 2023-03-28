@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/cameraFragment"
-        android:name="com.bkmbigo.tambuapesa.fragments.CameraFragment"
+        android:name="com.projecty4s2.pesacheck.fragments.CameraFragment"
         android:label="CameraFragment" >
 
 
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/permissionsFragment"
-        android:name="com.bkmbigo.tambuapesa.fragments.PermissionsFragment"
+        android:name="com.projecty4s2.pesacheck.fragments.PermissionsFragment"
         android:label="PermissionsFragment" >
         <action
             android:id="@+id/action_permissionsFragment_to_cameraFragment"
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.bkmbigo.tambuapesa.fragments.SettingsFragment"
+        android:name="com.projecty4s2.pesacheck.fragments.SettingsFragment"
         android:label="SettingsFragment" >
         <action
             android:id="@+id/action_settingsFragment_to_cameraFragment"

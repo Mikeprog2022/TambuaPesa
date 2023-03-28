@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">TambuaPesa</string>
+    <string name="app_name" translatable="false">Pesa Check</string>
     <string name="turn_on_torch">Turn On Torch</string>
     <string name="turn_off_torch">Turn Off Torch</string>
 

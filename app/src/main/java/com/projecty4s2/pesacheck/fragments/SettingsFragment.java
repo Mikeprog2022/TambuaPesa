@@ -1,4 +1,4 @@
-package com.bkmbigo.tambuapesa.fragments;
+package com.projecty4s2.pesacheck.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,13 +8,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.preference.ListPreference;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
-import androidx.preference.SeekBarPreference;
 
-import com.bkmbigo.tambuapesa.R;
-import com.bkmbigo.tambuapesa.databinding.FragmentSettingsBinding;
+import com.projecty4s2.pesacheck.R;
+import com.projecty4s2.pesacheck.databinding.FragmentSettingsBinding;
 
 public class SettingsFragment extends Fragment {
 

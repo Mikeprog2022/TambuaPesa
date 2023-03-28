@@ -1,4 +1,4 @@
-package com.bkmbigo.tambuapesa;
+package com.projecty4s2.pesacheck;
 
 import android.content.Context;
 import android.graphics.Bitmap;

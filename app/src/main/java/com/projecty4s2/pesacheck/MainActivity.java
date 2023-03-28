@@ -1,4 +1,4 @@
-package com.bkmbigo.tambuapesa;
+package com.projecty4s2.pesacheck;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -12,8 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 
-import com.bkmbigo.tambuapesa.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationBarView;
+import com.projecty4s2.pesacheck.databinding.ActivityMainBinding;
 
 import java.util.Objects;
 
