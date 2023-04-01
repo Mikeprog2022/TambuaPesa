@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.projecty4s2.pesacheck"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -34,8 +34,8 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     //Window Manger
     implementation 'androidx.window:window:1.1.0-alpha03'
@@ -44,8 +44,8 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite-task-vision:0.4.1'
     implementation 'org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.1'
     //Navigation
-    implementation 'androidx.navigation:navigation-ui:2.5.1'
-    implementation 'androidx.navigation:navigation-fragment:2.5.1'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
     //Camera
     implementation 'androidx.camera:camera-core:1.2.0-alpha04'
     implementation 'androidx.camera:camera-camera2:1.2.0-alpha04'
@@ -53,7 +53,7 @@ dependencies {
     implementation 'androidx.camera:camera-lifecycle:1.2.0-alpha04'
     implementation 'org.tensorflow:tensorflow-lite-metadata:0.4.1'
     implementation 'androidx.preference:preference:1.2.0'
-    implementation 'androidx.fragment:fragment:1.5.1'
+    implementation 'androidx.fragment:fragment:1.5.6'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

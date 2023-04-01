@@ -38,6 +38,14 @@
 
         <ListPreference
             android:defaultValue="1"
+            android:entries="@array/show_additive_modes"
+            android:entryValues="@array/show_additive_values"
+            android:title="Additive Mode"
+            app:key="additive_mode"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:defaultValue="1"
             android:entries="@array/confidence_modes"
             android:entryValues="@array/confidence_modes_values"
             android:title="Show Confidence"
