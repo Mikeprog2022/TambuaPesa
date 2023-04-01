@@ -23,9 +23,11 @@ import java.util.Locale;
 
 public class OverlayView extends View {
     private List<Detection> results = new LinkedList<>();
+    private int additiveValue = 0;
     private final Paint boxPaint = new Paint(),
             textBackgroundPaint = new Paint(),
-            textPaint = new Paint();
+            textPaint = new Paint(),
+            textInBackgroundPaint = new Paint();
 
     private float scaleFactor = 1f;
 
@@ -35,7 +37,7 @@ public class OverlayView extends View {
 
     private final Context context;
 
-    private final boolean isShowingTextOnly, isShowingConfidenceLevels;
+    private final boolean isShowingTextOnly, isShowingConfidenceLevels, isShowingAdditive;
 
     public OverlayView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -45,6 +47,8 @@ public class OverlayView extends View {
         isShowingTextOnly = !sharedPreferences.getString("display_mode", "1").equals("1");
 
         isShowingConfidenceLevels = !sharedPreferences.getString("show_confidence", "1").equals("1");
+
+        isShowingAdditive = !sharedPreferences.getString("additive_mode", "1").equals("1");
     }
 
     private void initPaints(){
@@ -55,6 +59,10 @@ public class OverlayView extends View {
         textPaint.setColor(Color.WHITE);
         textPaint.setStyle(Paint.Style.FILL);
         textPaint.setTextSize(50f);
+
+        textInBackgroundPaint.setColor(Color.argb(150, 180, 180, 180));
+        textInBackgroundPaint.setStyle(Paint.Style.FILL);
+        textInBackgroundPaint.setTextSize(25f);
 
         boxPaint.setColor(ContextCompat.getColor(context, R.color.bounding_box_color));
         boxPaint.setStrokeWidth(8F);
@@ -82,6 +90,12 @@ public class OverlayView extends View {
                 drawableText = result.getCategories().get(0).getLabel();
             }
 
+            Paint detectionTextPaint = textPaint;
+            if(isShowingAdditive){
+                detectionTextPaint = textInBackgroundPaint;
+            }
+
+
             if(!isShowingTextOnly){
                 @SuppressLint("DrawAllocation")
                 RectF drawableRectF = new RectF(left, top, right, bottom);
@@ -98,11 +112,24 @@ public class OverlayView extends View {
                         top + textHeight + BOUNDING_BOX_RECT_TEXT_PADDING,
                         textBackgroundPaint);
 
-                canvas.drawText(drawableText, left, top + bounds.height(), textPaint);
+                canvas.drawText(drawableText, left, top + bounds.height(), detectionTextPaint);
             }else{
-                canvas.drawText(drawableText, (left + right) / 2, (top + bottom) / 2,textPaint);
+                canvas.drawText(drawableText, (left + right) / 2, (top + bottom) / 2, detectionTextPaint);
             }
         }
+
+        if(isShowingAdditive) {
+            String strAdditiveValue = String.valueOf(additiveValue);
+            textBackgroundPaint.getTextBounds(strAdditiveValue, 0, strAdditiveValue.length(), bounds);
+
+            canvas.drawText(strAdditiveValue, 0.5f, 0.5f, textPaint);
+        }
+    }
+
+    public void setResults(List<Detection> detectionResults, int additiveValue, int imageHeight, int imageWidth){
+        this.additiveValue = additiveValue;
+
+        setResults(detectionResults, imageHeight, imageWidth);
     }
 
     public void setResults(List<Detection> detectionResults, int imageHeight, int imageWidth){

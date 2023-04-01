@@ -7,8 +7,10 @@
     android:background="#00000000">
 
     <RelativeLayout
+        android:id="@+id/camera_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <androidx.camera.view.PreviewView
             android:id="@+id/view_finder"
@@ -46,6 +48,40 @@
                 android:layout_marginHorizontal="4dp"
                 android:text="TURN ON TORCH" />
         </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/permission_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/permFrag_Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="35sp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-medium"
+                android:text="The Application requires Camera Permission for it to Properly Function!"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/permFrag_btGrantPermission"
+                android:layout_width="250dp"
+                android:layout_height="90dp"
+                android:text="Grant Permission"
+                android:layout_marginTop="8dp"
+                android:textSize="25sp"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/permFrag_Text"/>
+        </RelativeLayout>
     </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
